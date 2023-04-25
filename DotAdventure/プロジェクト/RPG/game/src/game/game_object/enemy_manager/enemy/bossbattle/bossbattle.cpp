@@ -11,7 +11,13 @@ void CBossBattle::Initialize(void)
 
 	m_EnemySprite.Create("data\\ƒ†ƒjƒbƒg\\1429010402.png");
 
-	m_max_life = 250;
+	m_EnemyStatus = { aqua::Rand(60,50),280,104,130,aqua::Rand(105,90) };
 
-	m_pData->SetEnemyHp(m_max_life);
+	m_pData->SetEnemyHp(m_EnemyStatus.hp);
+	m_pData->SetEnemyLv(m_EnemyStatus.level);
+	m_pData->SetEnemySpeed(m_EnemyStatus.speed);
+	m_pData->SetEnemyStren(m_EnemyStatus.strength);
+	m_pData->SetEnemyDefen(m_EnemyStatus.defense);
+
+	IGameObject::Initialize();
 }

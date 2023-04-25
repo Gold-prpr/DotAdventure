@@ -32,11 +32,17 @@ void CCharacter::Initialize(void)
 	m_pData = (CData*)aqua::FindGameObject("Data");
 	m_pStage = (CStage*)aqua::FindGameObject("Map");
 	m_pItem = (CItem*)aqua::FindGameObject("Item");
-	m_pEm = (CEnemyManager*)aqua::CreateGameObject<CEnemyManager>(this);
-	m_pEnemy = (IEnemy*)aqua::FindGameObject("EnemyUnit");
-	m_pBoss = (CBoss*)aqua::FindGameObject("Boss");
 	m_pInve = aqua::CreateGameObject<CInventory>(this);
 	m_pScroll = (CScroll*)aqua::FindGameObject("Scroll");
+
+	m_CharaStatus = { 50,148,10,130,105,102 };
+
+	m_pData->SetHp(m_CharaStatus.hp);
+	m_pData->SetMp(m_CharaStatus.mp);
+	m_pData->SetCharaLv(m_CharaStatus.level);
+	m_pData->SetCharaSpeed(m_CharaStatus.speed);
+	m_pData->SetCharaStren(m_CharaStatus.strength);
+	m_pData->SetCharaDefen(m_CharaStatus.defense);
 
 	m_CharaMoveSpeed = (int)((float)m_pStage->m_map_chip_size / (float)m_chara_timer);
 

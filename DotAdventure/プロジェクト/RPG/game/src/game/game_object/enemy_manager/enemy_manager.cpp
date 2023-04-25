@@ -19,9 +19,6 @@ Initialize(void)
 	IGameObject::Initialize();
 }
 
-/*
- *  更新
- */
 void
 CEnemyManager::
 Update(void)
@@ -43,13 +40,11 @@ Finalize(void)
 	IGameObject::Finalize();
 }
 
-/*
- *  エネミーの生成
- */
 void
 CEnemyManager::
 Create(ENEMY_ID id)
 {
+	//エネミーの生成
 	IGameObject* enemy = nullptr;
 
 	switch (id)

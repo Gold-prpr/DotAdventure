@@ -20,11 +20,8 @@ Initialize(void)
 	m_pChara = (CCharacter*)aqua::FindGameObject("Character");
 	m_pData = (CData*)aqua::FindGameObject("Data");
 	m_pComment = (CComment*)aqua::CreateGameObject<CComment>(this);
-	m_pRedDemon = (CRedDemon*)aqua::FindGameObject("RedDm_pEmon");
-	m_pCatCoin = (CCatCoin*)aqua::FindGameObject("CatCoin");
 	m_pSkill = (CSkill*)aqua::CreateGameObject<CSkill>(this);
 	m_pStage = (CStage*)aqua::FindGameObject("Map");
-	m_pBoss = (CBoss*)aqua::FindGameObject("Boss");
 	m_pInve = (CInventory*)aqua::FindGameObject("Inventory");
 
 	m_BackgourndSprite.Create("data\\戦闘\\background.png");
@@ -47,12 +44,6 @@ Initialize(void)
 	m_CommandSprite4.Create("data\\戦闘\\Pixelart-022-command4.png");
 	m_CommandSprite4.position = aqua::CVector2(aqua::GetWindowWidth() - m_CommandSprite4.GetTextureWidth(), 0);
 
-	m_Hp = 100;
-	m_Mp = 10;
-
-	m_pData->SetHp(m_Hp);
-	m_pData->SetMp(m_Mp);
-
 	m_HpLabel.Create(45);
 	m_HpNumber.Create(45);
 	m_HpLabel.text = "HP　:";
@@ -61,11 +52,9 @@ Initialize(void)
 	m_HpNumber.position = aqua::CVector2(m_HpLabel.position.x + m_HpLabel.GetTextWidth() + 10.0f,
 		m_HpLabel.position.y);
 
-	m_Mp = m_pData->GetMp();
 	m_MpLabel.Create(45);
 	m_MpNumber.Create(45);
 	m_MpLabel.text = "MP　:";
-	m_MpNumber.text = std::to_string(m_Mp);
 	m_MpLabel.position = aqua::CVector2(90,
 		m_HpLabel.position.y + m_MpLabel.GetFontHeight() + 20.0f);
 	m_MpNumber.position = aqua::CVector2(m_MpLabel.position.x + m_MpLabel.GetTextWidth() + 10.0f,
@@ -100,6 +89,8 @@ Initialize(void)
 	m_CheckFlagChara = false;
 	m_CheckFlagEnemy = false;
 
+	m_Damage = 0;
+
 	//出現した敵によって表示する敵の名前を変える
 	m_EnemyName.Create(45);
 	if (m_pEm->m_EnemyNumber == (int)ENEMY_ID::REDDEMON)
@@ -118,6 +109,16 @@ Initialize(void)
 	m_EnemyHpLabel.position = aqua::CVector2(90, 120.0f);
 	m_EnemyHpNumber.position = aqua::CVector2(m_EnemyHpLabel.position.x + m_EnemyHpLabel.GetTextWidth() + 10.0f,
 		m_EnemyHpLabel.position.y);
+
+	m_EnemyLvLabel.Create(45);
+	m_EnemyLvNumber.Create(45);
+	m_EnemyLv = m_pData->GetEnemyLv();
+	m_EnemyLvLabel.text = "Lv　:";
+	m_EnemyLvNumber.text = std::to_string(m_EnemyLv);
+	m_EnemyLvLabel.position = aqua::CVector2(m_EnemyHpLabel.position.x,
+		m_EnemyHpLabel.position.y + m_EnemyHpLabel.GetFontHeight() + 30.0f);
+	m_EnemyLvNumber.position = aqua::CVector2(m_EnemyLvLabel.position.x + m_EnemyHpLabel.GetTextWidth() + 10.0f,
+		m_EnemyLvLabel.position.y);
 
 	m_Serect.Create("data\\arrow-145781__480.png");
 	m_Serect.position = aqua::CVector2(m_CommandSprite.position.x + 100.0f - m_Serect.GetTextureWidth(), m_CommandSprite.position.y + 100.0f);
@@ -305,6 +306,9 @@ Draw(void)
 	m_EnemyHpLabel.Draw();
 	m_EnemyHpNumber.Draw();
 
+	m_EnemyLvLabel.Draw();
+	m_EnemyLvNumber.Draw();
+
 	if (m_BattleFase == BATTLE_FASE::JUDGETOOL)
 	{
 		m_Yes.Draw();
@@ -387,6 +391,9 @@ Finalize(void)
 	m_EnemyName.Delete();
 	m_EnemyHpLabel.Delete();
 	m_EnemyHpNumber.Delete();
+
+	m_EnemyLvLabel.Delete();
+	m_EnemyLvNumber.Delete();
 
 	m_Serect.Delete();
 
@@ -489,7 +496,11 @@ void CBattleScene::StartMessage(void)
 		m_BattleFase == BATTLE_FASE::STARTMESSAGE)
 	{
 		m_pComment->StepScript();
-		m_BattleFase = BATTLE_FASE::FASECHARAMESSAGE;
+
+		if(m_pData->GetCharaSpeed() > m_pData->GetEnemySpeed())
+			m_BattleFase = BATTLE_FASE::FASECHARAMESSAGE;
+		else
+			m_BattleFase = BATTLE_FASE::FASEENEMYMESSAGE;
 	}
 }
 
@@ -520,7 +531,12 @@ void CBattleScene::SerectBattleCommand(void)
 			m_BattleFase = BATTLE_FASE::MAGIC;
 		else if (m_ReftFlag && m_DownFlag)
 		{
-			m_RandRun = rand() % 4;
+			if (m_pEm->m_EnemyNumber != (int)ENEMY_ID::BOSS)
+				m_RandRun = rand() % 4;
+			else
+			{
+				m_RandRun = 1;
+			}
 			m_BattleFase = BATTLE_FASE::COMMANDMYMESSAGE;
 		}
 
@@ -687,19 +703,23 @@ void CBattleScene::PlayerAttack(void)
 		{
 			if (m_CheckFlagEnemy == false)
 			{
-				m_EnemyHp = m_pData->GetEnemyHp() - m_pSkill->m_SkillCharaDamage[i];
+				m_Damage = (((m_pData->GetCharaLv() * 2 / 5 + 2) * (m_pSkill->m_SkillCharaDamage[i] *
+					((float)m_pData->GetCharaStren() / (float)m_pData->GetEnemyDefen())) / 50 + 2) *
+					(float)(aqua::Rand(100, 85)) / 100.0f);
+
+				m_EnemyHp = m_pData->GetEnemyHp() - m_Damage;
 
 				if (m_EnemyHp <= 0)
 				{
 					m_EnemyHp = 0;
-					m_pData->SetEnemyHp(m_EnemyHp);
+					m_pData->SetEnemyHp(0);
 				}
 
 				m_pData->SetEnemyHp(m_EnemyHp);
 				m_CheckFlagEnemy = true;
 			}
 
-			m_pComment->ShowText("プレイヤーは" + std::to_string((int)m_pSkill->m_SkillCharaDamage[i]) + "ダメージを与えた");
+			m_pComment->ShowText("プレイヤーは" + std::to_string(m_Damage) + "ダメージを与えた");
 		}
 	}
 
@@ -734,12 +754,16 @@ void CBattleScene::PlayerMagicAttack(void)
 					m_Mp = m_pData->GetMp() - m_pSkill->m_MagicCharaMp[j];
 					m_pData->SetMp(m_Mp);
 
-					m_EnemyHp = m_pData->GetEnemyHp() - m_pSkill->m_MagicCharaDamage[j];
+					m_Damage = (((m_pData->GetCharaLv() * 2 / 5 + 2) * (m_pSkill->m_MagicCharaDamage[j] *
+						((float)m_pData->GetCharaStren() / (float)m_pData->GetEnemyDefen())) / 50 + 2) *
+						(float)(aqua::Rand(100, 85)) / 100.0f);
+					
+					m_EnemyHp = m_pData->GetEnemyHp() - m_Damage;
 
 					if (m_EnemyHp <= 0)
 					{
 						m_EnemyHp = 0;
-						m_pData->SetEnemyHp(m_EnemyHp);
+						m_pData->SetEnemyHp(0);
 					}
 
 					m_pData->SetEnemyHp(m_EnemyHp);
@@ -747,7 +771,7 @@ void CBattleScene::PlayerMagicAttack(void)
 				}
 			}
 
-			m_pComment->ShowText("プレイヤーは" + std::to_string((int)m_pSkill->m_MagicCharaDamage[j]) + "ダメージを与えた");
+			m_pComment->ShowText("プレイヤーは" + std::to_string(m_Damage) + "ダメージを与えた");
 		}
 	}
 
@@ -827,7 +851,11 @@ void CBattleScene::EnemyAttack(void)
 		{
 			if (m_CheckFlagChara == false)
 			{
-				m_Hp = m_pData->GetHp() - m_pSkill->m_SkillEnemyDamage[i];
+				m_Damage = (((m_pData->GetEnemyLv() * 2 / 5 + 2) * (m_pSkill->m_EnemySkill[i].damage *
+					((float)m_pData->GetEnemyStren() / (float)m_pData->GetCharaDefen())) / 50 + 2) *
+					(float)(aqua::Rand(100, 85)) / 100.0f);
+
+				m_Hp = m_pData->GetHp() - m_Damage;
 
 				if (m_Hp <= 0)
 				{
@@ -839,7 +867,7 @@ void CBattleScene::EnemyAttack(void)
 				m_CheckFlagChara = true;
 			}
 
-			m_pComment->ShowText(name + std::to_string((int)m_pSkill->m_SkillEnemyDamage[i]) + "ダメージを与えた");
+			m_pComment->ShowText(name + std::to_string(m_Damage) + "ダメージを与えた");
 		}
 	}
 
@@ -878,6 +906,7 @@ void CBattleScene::ResultMessage(void)
 			m_pComment->StepScript();
 			m_pSound->Stop(SOUND_ID::BATTLEBGM);
 			Change(SCENE_ID::GAMEOVER);
+			m_pData->SetBossFlag(false);
 			m_BattleFase = BATTLE_FASE::STARTMESSAGE;
 		}
 	}
@@ -893,14 +922,13 @@ void CBattleScene::ResultMessage(void)
 
 			m_pComment->ShowText("ゲームクリア！！！");
 
-			m_pData->SetBossFlag(false);
-
 			if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::NUMPADENTER) &&
 				m_BattleFase == BATTLE_FASE::RESULT)
 			{
 				m_pComment->StepScript();
 				m_pSound->Stop(SOUND_ID::BATTLEBGM);
 				Change(SCENE_ID::GAMECLEAR);
+				m_pData->SetBossFlag(false);
 				m_BattleFase = BATTLE_FASE::STARTMESSAGE;
 			}
 		}
@@ -938,7 +966,7 @@ void CBattleScene::RunAway(void)
 	else
 	{
 		m_pComment->StepScript();
-		m_BattleFase = BATTLE_FASE::FASEENEMYMESSAGE;
+		m_BattleFase = BATTLE_FASE::COMMANDFASE;
 	}
 }
 
@@ -1045,6 +1073,7 @@ void CBattleScene::SelectJudgTool(void)
 
 aqua::CVector2 CBattleScene::SellectArrowPos(int sele_aro_pos)
 {
+	//矢印のポジション
 	aqua::CVector2 select_arrow_1 = { m_CommandSprite.position.x + 100.0f - m_Serect.GetTextureWidth() ,
 		m_CommandSprite.position.y + 100.0f };
 	aqua::CVector2 select_arrow_2 = { m_CommandSprite.position.x + 100.0f - m_Serect.GetTextureWidth(),

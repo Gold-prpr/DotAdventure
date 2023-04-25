@@ -32,7 +32,7 @@ Initialize(void)
 	m_pChara = (CCharacter*)aqua::FindGameObject("Character");
 	m_pInve = (CInventory*)aqua::FindGameObject("Inventory");
 	m_pItem = (CItem*)aqua::FindGameObject("Item");
-
+	
 	m_pSound->Play(SOUND_ID::MAINOP);
 
 	//２週目用にキャラの位置とアイテムの所持をリセット

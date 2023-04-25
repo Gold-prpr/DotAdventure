@@ -1,8 +1,10 @@
 #pragma once
 #include "aqua.h"
 #include "../character/character.h"
+#include "../map/item/item.h"
 
 class CCharacter;
+class CItem;
 
 class CCharacterManager
 	:public aqua::IGameObject
@@ -23,5 +25,5 @@ public:
 
 private:
 	CCharacter* m_pChara;
-
+	CItem* m_pItem;
 };

@@ -2,10 +2,6 @@
 
 #include "aqua.h"
 #include "../enemy_manager.h"
-//#include "../../data/data.h"
-
-//class CData;
-class CEnemyManager;
 
 class IEnemy
 	: public aqua::IGameObject
@@ -23,12 +19,20 @@ public:
 
 	virtual void Finalize(void);
 
+	struct STATUS
+	{
+		int level;
+		int hp;
+		int strength;
+		int defense;
+		int speed;
+	};
+
+	STATUS m_EnemyStatus;
+
 protected:
-	aqua::CSprite m_EnemySprite; //
-	aqua::CVector2 m_Position; //
+	aqua::CSprite m_EnemySprite; //エネミーのスプライト
 	
 private:
-	static const std::string m_object_category; //
 
-	CEnemyManager* m_Enemy; //
 };

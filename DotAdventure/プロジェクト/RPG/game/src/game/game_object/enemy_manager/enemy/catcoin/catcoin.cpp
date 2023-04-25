@@ -1,17 +1,11 @@
 #include "catcoin.h"
 
-/*
- *  コンストラクタ
- */
 CCatCoin::
 CCatCoin(aqua::IGameObject* parent)
 	: IEnemy(parent, "CatCoin")
 {
 }
 
-/*
- *  初期化
- */
 void
 CCatCoin::
 Initialize(void)
@@ -20,7 +14,13 @@ Initialize(void)
 
 	m_EnemySprite.Create("data\\ユニット\\1538020401.png");
 
-	m_max_life = 80;
+	m_EnemyStatus = { aqua::Rand(45,30),121,134,95,aqua::Rand(105,70) };
 
-	m_pData->SetEnemyHp(m_max_life);
+	m_pData->SetEnemyHp(m_EnemyStatus.hp);
+	m_pData->SetEnemyLv(m_EnemyStatus.level);
+	m_pData->SetEnemySpeed(m_EnemyStatus.speed);
+	m_pData->SetEnemyStren(m_EnemyStatus.strength);
+	m_pData->SetEnemyDefen(m_EnemyStatus.defense);
+
+	IGameObject::Initialize();
 }

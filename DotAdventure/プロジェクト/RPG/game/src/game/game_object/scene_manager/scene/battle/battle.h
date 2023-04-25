@@ -9,14 +9,12 @@
 #include "../../../comment_viewer/comment_viewer.h"
 #include "../../../enemy_manager/enemy_manager.h"
 #include "../../../enemy_manager/enemy/enemy.h"
-#include "../../../enemy_manager/enemy/reddemon/reddemon.h"
-#include "../../../enemy_manager/enemy/catcoin/catcoin.h"
 #include "../../../map/map.h"
 #include "../../../map/item/item.h"
 #include "../../../map/tile_id.h"
-#include "../../../enemy_manager/enemy/boss/boss.h"
 #include "../../../Inventory/Inventory.h"
 #include "../../../sound_manager/sound_manager.h"
+#include "../../../enemy_manager/enemy/enemy.h"
 
 class CSoundManager;
 class CGameMainScene;
@@ -26,10 +24,7 @@ class IEnemy;
 class CData;
 class CSkill;
 class CComment;
-class CRedDemon;
-class CCatCoin;
 class CStage;
-class CBoss;
 class CInventory;
 class CItem;
 
@@ -84,6 +79,12 @@ public:
 	void ResultMessage(void);
 
 	void HealHp(void);
+
+	int toCharaDamage(void);
+
+	int toEnemyDamage(void);
+
+	int toEnemyMagicDamage(void);
 
 	aqua::CVector2 SellectArrowPos(int sele_aro_pos);
 
@@ -145,6 +146,10 @@ private:
 	aqua::CLabel m_EnemyHpLabel; //HPの名前を表示するためのラベル
 	aqua::CLabel m_EnemyHpNumber; //HPの数字を表示するためのラベル
 
+	int m_EnemyLv; //敵のLv
+	aqua::CLabel m_EnemyLvLabel; //Lvの名前を表示するためのラベル
+	aqua::CLabel m_EnemyLvNumber; //Lvの数字を表示するためのラベル
+
 	int m_HealNum; //回復薬の数
 	aqua::CLabel m_HealNumLabel; //回復薬の名前を表示するためのラベル
 	aqua::CLabel m_HealNumCount; //回復薬の数字を表示するためのラベル
@@ -176,6 +181,8 @@ private:
 	bool m_CheckFlagChara; //キャラの攻撃判断フラッグ
 	bool m_CheckFlagEnemy; //敵の攻撃判断フラッグ
 
+	int m_Damage; //ダメージ数
+
 	bool m_DownFlag; //コマンドセレクト上下の判断フラッグ
 	bool m_ReftFlag; //コマンドセレクト左右の判断フラッグ
 
@@ -188,9 +195,7 @@ private:
 	CData* m_pData;
 	CSkill* m_pSkill;
 	CComment* m_pComment;
-	CCatCoin* m_pCatCoin;
-	CRedDemon* m_pRedDemon;
 	CStage* m_pStage;
-	CBoss* m_pBoss;
+	IEnemy* m_pEnemy;
 	CInventory* m_pInve;
 };

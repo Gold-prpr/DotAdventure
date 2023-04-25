@@ -15,6 +15,18 @@ void CData::Initialize(void)
 	m_EnemyHp = 0;
 	m_Mp = 0;
 
+	m_CharaLv = 0;
+	m_EnemyLv = 0;
+
+	m_CharaSpeed = 0;
+	m_EnemySpeed = 0;
+
+	m_CharaStren = 0;
+	m_EnemyStren = 0;
+
+	m_CharaDefen = 0;
+	m_EnemyDefen = 0;
+
 	m_BossFlag = false;
 
 	m_CharaPos = aqua::CVector2(0, 0);
@@ -83,6 +95,86 @@ void CData::SetMp(int mp)
 int CData::GetMp() const
 {
 	return m_Mp;
+}
+
+void CData::SetCharaLv(int lv)
+{
+	m_CharaLv = lv;
+}
+
+int CData::GetCharaLv() const
+{
+	return m_CharaLv;
+}
+
+void CData::SetEnemyLv(int lv)
+{
+	m_EnemyLv = lv;
+}
+
+int CData::GetEnemyLv() const
+{
+	return m_EnemyLv;
+}
+
+void CData::SetCharaSpeed(int speed)
+{
+	m_CharaSpeed = speed;
+}
+
+int CData::GetCharaSpeed() const
+{
+	return m_CharaSpeed;
+}
+
+void CData::SetEnemySpeed(int speed)
+{
+	m_EnemySpeed = speed;
+}
+
+int CData::GetEnemySpeed() const
+{
+	return m_EnemySpeed;
+}
+
+void CData::SetEnemyStren(int stren)
+{
+	m_EnemyStren = stren;
+}
+
+int CData::GetEnemyStren() const
+{
+	return m_EnemyStren;
+}
+
+void CData::SetCharaStren(int stren)
+{
+	m_CharaStren = stren;
+}
+
+int CData::GetCharaStren() const
+{
+	return m_CharaStren;
+}
+
+void CData::SetEnemyDefen(int defen)
+{
+	m_EnemyDefen = defen;
+}
+
+int CData::GetEnemyDefen() const
+{
+	return m_EnemyDefen;
+}
+
+void CData::SetCharaDefen(int defen)
+{
+	m_CharaDefen = defen;
+}
+
+int CData::GetCharaDefen() const
+{
+	return m_CharaDefen;
 }
 
 void CData::SetBossFlag(bool boss_flag)

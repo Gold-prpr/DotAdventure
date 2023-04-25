@@ -12,6 +12,7 @@
 #include "game.h"
 #include "game_object/game_object.h"
 #include "game_object/sound_manager/sound_manager.h"
+#include "game_object/enemy_manager/enemy/enemy.h"
 
 const unsigned int CGame::m_clear_color = 0xff000000;
 
@@ -38,7 +39,7 @@ Initialize(void)
 	aqua::CreateGameObject<CStage>(this);
 
 	aqua::CreateGameObject<CItem>(this);
-	
+
 	aqua::CreateGameObject<CInventory>(this);
 
 	aqua::CreateGameObject<CCharacterManager>(this);

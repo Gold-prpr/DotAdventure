@@ -38,5 +38,5 @@ int
 aqua::
 Rand( int max, int min )
 {
-    return ( rand( ) % ( ( max + 1 ) - min ) ) + min;
+    return (rand() % ((max + 1) - min)) + min;
 }

@@ -21,7 +21,7 @@ void CItem::Initialize(void)
 {
 	m_pScroll = (CScroll*)aqua::FindGameObject("Scroll");
 
-	aqua::CreateGameObject<CData>(this);
+	//aqua::CreateGameObject<CData>(this);
 
 	m_pChara = (CCharacter*)aqua::CreateGameObject<CCharacter>(this);
 
@@ -136,7 +136,6 @@ void CItem::OpenBox(int x, int y)
 		m_ItemData[m_map_x_item * y + x] = (int)ITEM_ID::TREASURECHEST2;
 
 	 int m_rand_number = 0;
-	 m_rand_number = 0;
 
 	switch (m_rand_number)
 	{

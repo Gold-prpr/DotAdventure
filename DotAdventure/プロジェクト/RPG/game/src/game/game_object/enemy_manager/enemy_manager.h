@@ -22,7 +22,7 @@ public:
 
 	void Create(ENEMY_ID id);
 
-	int m_EnemyNumber;
+	int m_EnemyNumber; //エネミーの番号
 
 private:
 

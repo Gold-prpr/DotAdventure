@@ -61,9 +61,7 @@ void CComment::ShowText(std::string com)
 	{
 		if (m_Start < m_NextText.size())
 		{
-			m_Byte = m_NextText.substr(m_Start, m_Next);
-
-			if (IsDBCSLeadByte(m_Byte[m_Next - 1]) == 0)
+			if (IsDBCSLeadByte(m_NextText[m_Start]) == 0)
 			{
 				if (m_SoundFlag == false)
 				{
@@ -71,6 +69,8 @@ void CComment::ShowText(std::string com)
 					m_SoundFlag = true;
 				}
 
+				m_Next = 1;
+				m_Byte = m_NextText.substr(m_Start, m_Next);
 				m_TextLabel.text += m_Byte;
 			}
 			else

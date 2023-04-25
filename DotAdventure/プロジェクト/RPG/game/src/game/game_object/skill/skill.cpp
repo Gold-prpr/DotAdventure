@@ -17,20 +17,20 @@ void CSkill::Initialize(void)
 	m_SkillNum = 0;
 	m_MagicNum = 0;
 
-	m_CharaSkill[0] = { 1,"たいあたり",SkillPos(m_CharaSkill[0].id_num) , 10.0f };
-	m_CharaSkill[1] = { 2,"パンチ",SkillPos(m_CharaSkill[1].id_num) , 14.0f };
-	m_CharaSkill[2] = { 3,"なく",SkillPos(m_CharaSkill[2].id_num) , 12.0f };
-	m_CharaSkill[3] = { 4,"キック",SkillPos(m_CharaSkill[3].id_num), 15.0f };
+	m_CharaSkill[0] = { 1,"たいあたり",SkillPos(m_CharaSkill[0].id_num) , 70.0f };
+	m_CharaSkill[1] = { 2,"パンチ",SkillPos(m_CharaSkill[1].id_num) , 75.0f };
+	m_CharaSkill[2] = { 3,"なく",SkillPos(m_CharaSkill[2].id_num) , 60.0f };
+	m_CharaSkill[3] = { 4,"キック",SkillPos(m_CharaSkill[3].id_num), 80.0f };
 
-	m_CharaMagic[0] = { 1,"ファイヤ",SkillPos(m_CharaMagic[0].id_num) , 25.0f , 4 };
-	m_CharaMagic[1] = { 2,"サンダー",SkillPos(m_CharaMagic[1].id_num) , 15.0f  , 2 };
-	m_CharaMagic[2] = { 3,"ボム",SkillPos(m_CharaMagic[2].id_num) , 50.0f  , 8 };
-	m_CharaMagic[3] = { 4,"アイス",SkillPos(m_CharaMagic[3].id_num), 35.0f  , 6 };
+	m_CharaMagic[0] = { 1,"ファイヤ",SkillPos(m_CharaMagic[0].id_num) , 70.0f , 4 };
+	m_CharaMagic[1] = { 2,"サンダー",SkillPos(m_CharaMagic[1].id_num) , 60.0f  , 2 };
+	m_CharaMagic[2] = { 3,"ボム",SkillPos(m_CharaMagic[2].id_num) , 80.0f  , 8 };
+	m_CharaMagic[3] = { 4,"アイス",SkillPos(m_CharaMagic[3].id_num), 75.0f  , 6 };
 
-	m_EnemySkill[0] = { 1,"雷",20.0f };
-	m_EnemySkill[1] = { 2,"叩く",15.0f };
-	m_EnemySkill[2] = { 3,"ひっかく",10.0f };
-	m_EnemySkill[3] = { 4,"とびはねる",15.0f };
+	m_EnemySkill[0] = { 1,"雷",80.0f };
+	m_EnemySkill[1] = { 2,"叩く",60.0f };
+	m_EnemySkill[2] = { 3,"ひっかく",70.0f };
+	m_EnemySkill[3] = { 4,"とびはねる",75.0f };
 
 	IGameObject::Initialize();
 }

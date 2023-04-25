@@ -66,7 +66,7 @@ Update(void)
 		* ボスフラッグがtrueになったらエンカウント
 		* ※ボスフラッグはcharacter.cppの最後で判断
 		*/
-		if (m_pChara->IsEncount() || m_pChara->m_BossFlag == true)
+		if (m_pChara->IsEncount() || m_pData->GetBossFlag() == true)
 		{
 			m_pSound->Stop(SOUND_ID::FIELDBGM);
 			m_pSound->Stop(SOUND_ID::WALK1);

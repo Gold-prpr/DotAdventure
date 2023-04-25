@@ -69,15 +69,17 @@ public:
 
 	void CheckBoss(void);
 
-	enum SKILL
+	struct STATUS
 	{
-		BODYBOW,
-		PUNCH,
-		KICK,
-		SAD,
+		int level;
+		int hp;
+		int mp;
+		int strength;
+		int defense;
+		int speed;
 	};
 
-	SKILL m_Skill;
+	STATUS m_CharaStatus;
 
 	aqua::CAnimationSprite m_Chara; //キャラクターのスプライト
 
@@ -121,10 +123,5 @@ private:
 	CItem* m_pItem;
 	CInventory* m_pInve;
 	CData* m_pData;
-	IEnemy* m_pEnemy;
-	CSkill* m_pSkill;
-	CComment* m_pComment;
-	CEnemyManager* m_pEm;
-	CBoss* m_pBoss;
 	CScroll* m_pScroll;
 };
