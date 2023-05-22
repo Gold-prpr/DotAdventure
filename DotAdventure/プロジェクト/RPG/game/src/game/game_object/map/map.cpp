@@ -51,6 +51,7 @@ void CStage::Initialize(void)
 void CStage::Update(void)
 {
 	//スクロールによってずれたマップの更新
+
 	int sx = (int)m_pScroll->GetScroll().x / m_map_chip_size - 1;
 
 	if (sx < 0) sx = 0;
@@ -71,7 +72,9 @@ void CStage::Update(void)
 void CStage::Draw(void)
 {
 	//スクロール移動量を引いてタイルのポジション指定
+
 	int i = 0;
+
 	for (auto it = m_MapData.begin(); it != m_MapData.end(); ++it, ++i)
 	{
 		m_TileSprite[*it].position.x = (float)(i % m_map_x) * 80 - m_pScroll->GetScroll().x;
@@ -87,6 +90,8 @@ void CStage::Finalize(void)
 		m_TileSprite[i].Delete();
 
 	AQUA_SAFE_DELETE_ARRAY(m_TileSprite);
+
+	m_MapData.clear();
 }
 
 bool CStage::CheckWall(int x, int y)

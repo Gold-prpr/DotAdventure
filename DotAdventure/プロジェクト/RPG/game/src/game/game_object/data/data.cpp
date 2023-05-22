@@ -33,10 +33,6 @@ void CData::Initialize(void)
 	m_BossPos = aqua::CVector2(0, 0);
 }
 
-void CData::Finalize(void)
-{
-}
-
 void CData::SetGoldCount(int gold_count)
 {
 	m_GoldCount = gold_count;

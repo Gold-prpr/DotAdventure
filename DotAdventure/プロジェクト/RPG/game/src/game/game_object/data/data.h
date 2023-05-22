@@ -11,9 +11,7 @@ public:
 	CData(aqua::IGameObject* parent);
 	~CData() = default;
 
-	void Initialize(void) override;
-
-	void Finalize(void) override;
+	void Initialize(void);
 
 	void SetGoldCount(int gold_count);
 

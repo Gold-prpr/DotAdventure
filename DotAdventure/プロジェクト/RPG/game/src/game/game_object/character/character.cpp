@@ -32,7 +32,7 @@ void CCharacter::Initialize(void)
 	m_pData = (CData*)aqua::FindGameObject("Data");
 	m_pStage = (CStage*)aqua::FindGameObject("Map");
 	m_pItem = (CItem*)aqua::FindGameObject("Item");
-	m_pInve = aqua::CreateGameObject<CInventory>(this);
+	m_pInve = (CInventory*)aqua::FindGameObject("Inventory");
 	m_pScroll = (CScroll*)aqua::FindGameObject("Scroll");
 
 	m_CharaStatus = { 50,148,10,130,105,102 };
@@ -141,8 +141,6 @@ void CCharacter::Draw(void)
 void CCharacter::Finalize(void)
 {
 	m_Chara.Delete();
-
-	m_pInve->Finalize();
 }
 
 void CCharacter::MoveCharacter(void)

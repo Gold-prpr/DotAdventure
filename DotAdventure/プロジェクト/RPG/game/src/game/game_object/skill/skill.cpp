@@ -27,10 +27,10 @@ void CSkill::Initialize(void)
 	m_CharaMagic[2] = { 3,"ƒ{ƒ€",SkillPos(m_CharaMagic[2].id_num) , 80.0f  , 8 };
 	m_CharaMagic[3] = { 4,"ƒAƒCƒX",SkillPos(m_CharaMagic[3].id_num), 75.0f  , 6 };
 
-	m_EnemySkill[0] = { 1,"—‹",80.0f };
-	m_EnemySkill[1] = { 2,"’@‚­",60.0f };
-	m_EnemySkill[2] = { 3,"‚Ð‚Á‚©‚­",70.0f };
-	m_EnemySkill[3] = { 4,"‚Æ‚Ñ‚Í‚Ë‚é",75.0f };
+	m_EnemySkill[0] = { 1,"—‹",70.0f };
+	m_EnemySkill[1] = { 2,"’@‚­",50.0f };
+	m_EnemySkill[2] = { 3,"‚Ð‚Á‚©‚­",60.0f };
+	m_EnemySkill[3] = { 4,"‚Æ‚Ñ‚Í‚Ë‚é",65.0f };
 
 	IGameObject::Initialize();
 }
@@ -71,6 +71,11 @@ void CSkill::Updata(void)
 	}
 
 	IGameObject::Update();
+}
+
+void CSkill::Finalize(void)
+{
+	
 }
 
 void CSkill::CheckSkillNum(int num)

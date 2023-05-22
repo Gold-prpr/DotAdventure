@@ -29,7 +29,7 @@ void CItem::Initialize(void)
 
 	m_ItemSprite = AQUA_NEW aqua::CSprite[m_all_num_chip_item];
 
-	for (int i = 0; i < (int)ITEM_ID::MAX; i++)
+	for (int i = 0; i < m_all_num_chip_item; i++)
 	{
 		m_ItemSprite[i].Create("data\\ƒ}ƒbƒv\\Item2.png");
 
@@ -87,10 +87,16 @@ void CItem::Draw(void)
 
 void CItem::Finalize(void)
 {
-	for (int i = 0; i < (int)ITEM_ID::MAX; i++)
+	for (int i = 0; i < m_all_num_chip_item; i++)
 		m_ItemSprite[i].Delete();
 
 	AQUA_SAFE_DELETE_ARRAY(m_ItemSprite);
+
+	m_ItemData.clear();
+
+	m_pChara->Finalize();
+
+	IGameObject::Finalize();
 }
 
 bool CItem::CheckChest(int x, int y)
@@ -136,6 +142,7 @@ void CItem::OpenBox(int x, int y)
 		m_ItemData[m_map_x_item * y + x] = (int)ITEM_ID::TREASURECHEST2;
 
 	 int m_rand_number = 0;
+	 m_rand_number = aqua::Rand(0, 0);
 
 	switch (m_rand_number)
 	{

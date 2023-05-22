@@ -447,9 +447,7 @@ void CBattleScene::PopEnemy(void)
 	if (m_pStage->m_SandFlag_B == true)
 		m_pEm->m_EnemyNumber = (int)ENEMY_ID::INITIALIZE;
 	if (m_pData->GetBossFlag() == true)
-	{
 		m_pEm->m_EnemyNumber = (int)ENEMY_ID::BOSS;
-	}
 
 	switch (m_pEm->m_EnemyNumber)
 	{
@@ -501,6 +499,32 @@ void CBattleScene::StartMessage(void)
 			m_BattleFase = BATTLE_FASE::FASECHARAMESSAGE;
 		else
 			m_BattleFase = BATTLE_FASE::FASEENEMYMESSAGE;
+	}
+}
+
+void CBattleScene::FaseCharaMessage(void)
+{
+	m_pComment->ShowText("自分のターン");
+
+	if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::NUMPADENTER) &&
+		m_BattleFase == BATTLE_FASE::FASECHARAMESSAGE)
+	{
+		m_pComment->StepScript();
+		m_BattleFase = BATTLE_FASE::COMMANDFASE;
+	}
+}
+
+void CBattleScene::FaseEnemyMessage(void)
+{
+	m_pComment->ShowText("敵のターン");
+
+	if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::NUMPADENTER) &&
+		m_BattleFase == BATTLE_FASE::FASEENEMYMESSAGE)
+	{
+		m_pComment->StepScript();
+		m_EnemyAttack = rand() % m_pSkill->m_max_enemy_skill;
+		m_pSound->Play(SOUND_ID::DAMAGE);
+		m_BattleFase = BATTLE_FASE::ENEMYFASE;
 	}
 }
 
@@ -805,32 +829,6 @@ void CBattleScene::MagicAttackMessage(void)
 	}
 }
 
-void CBattleScene::FaseEnemyMessage(void)
-{
-	m_pComment->ShowText("敵のターン");
-
-	if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::NUMPADENTER) &&
-		m_BattleFase == BATTLE_FASE::FASEENEMYMESSAGE)
-	{
-		m_pComment->StepScript();
-		m_EnemyAttack = rand() % m_pSkill->m_max_enemy_skill;
-		m_pSound->Play(SOUND_ID::DAMAGE);
-		m_BattleFase = BATTLE_FASE::ENEMYFASE;
-	}
-}
-
-void CBattleScene::FaseCharaMessage(void)
-{
-	m_pComment->ShowText("自分のターン");
-
-	if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::NUMPADENTER) &&
-		m_BattleFase == BATTLE_FASE::FASECHARAMESSAGE)
-	{
-		m_pComment->StepScript();
-		m_BattleFase = BATTLE_FASE::COMMANDFASE;
-	}
-}
-
 void CBattleScene::EnemyAttack(void)
 {
 	std::string name;
@@ -972,8 +970,6 @@ void CBattleScene::RunAway(void)
 
 void CBattleScene::SelectTool(void)
 {
-	m_pInve->Draw();
-
 	if (!m_ReftFlag && !m_DownFlag)
 		m_Serect.position = SellectArrowPos(1);
 	else if (!m_ReftFlag && m_DownFlag)

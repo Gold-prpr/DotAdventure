@@ -13,9 +13,11 @@ public:
 	CSkill(aqua::IGameObject* parent);
 	~CSkill() = default;
 
-	void Initialize(void) override;
+	void Initialize(void);
 
 	void Updata(void);
+
+	void Finalize(void);
 
 	void CheckSkillNum(int num);
 
