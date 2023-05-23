@@ -29,7 +29,6 @@ void
 CGameMainScene::
 Initialize(void)
 {
-	m_pItem = (CItem*)aqua::CreateGameObject<CItem>(this);
 	m_pSound = (CSoundManager*)aqua::FindGameObject("SoundManager");
 	CCharacterManager* cm = (CCharacterManager*)aqua::FindGameObject("CharacterManager");
 	m_pData = (CData*)aqua::FindGameObject("Data");
@@ -55,7 +54,7 @@ void
 CGameMainScene::
 Update(void)
 {
-	if (m_pBoss)m_pBoss->Update();
+	m_pBoss->Update();
 	
 	if (m_pChara)
 	{
@@ -69,10 +68,8 @@ Update(void)
 		if (m_pChara->IsEncount() || m_pData->GetBossFlag() == true)
 		{
 			m_pSound->Stop(SOUND_ID::FIELDBGM);
-			m_pSound->Stop(SOUND_ID::WALK1);
-			m_pSound->Stop(SOUND_ID::WALK2);
-			m_pSound->Stop(SOUND_ID::WALK3);
-			m_pSound->Stop(SOUND_ID::WALK4);
+			m_pChara->StopWalkSound();
+
 			Change(SCENE_ID::BATTLE);
 		}
 	}
@@ -82,6 +79,13 @@ Update(void)
 
 void CGameMainScene::Draw(void)
 {
-	if (m_pBoss)m_pBoss->Draw();
-	if (m_pChara)m_pChara->Draw();
+	m_pBoss->Draw();
+	m_pChara->Draw();
+
+	IGameObject::Draw();
+}
+
+void CGameMainScene::Finalize(void)
+{
+	IGameObject::Finalize();
 }

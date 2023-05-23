@@ -21,12 +21,6 @@ void CItem::Initialize(void)
 {
 	m_pScroll = (CScroll*)aqua::FindGameObject("Scroll");
 
-	//aqua::CreateGameObject<CData>(this);
-
-	m_pChara = (CCharacter*)aqua::CreateGameObject<CCharacter>(this);
-
-	m_pChara->Initialize();
-
 	m_ItemSprite = AQUA_NEW aqua::CSprite[m_all_num_chip_item];
 
 	for (int i = 0; i < m_all_num_chip_item; i++)
@@ -94,8 +88,6 @@ void CItem::Finalize(void)
 
 	m_ItemData.clear();
 
-	m_pChara->Finalize();
-
 	IGameObject::Finalize();
 }
 
@@ -136,23 +128,6 @@ void CItem::ChangeAir(int x, int y)
 	m_ItemData[m_map_x_item * y + x] = (int)ITEM_ID::AIR;
 }
 
-void CItem::OpenBox(int x, int y)
-{
-	if (m_ItemData[m_map_x_item * y + x] == (int)ITEM_ID::TREASURECHEST1)
-		m_ItemData[m_map_x_item * y + x] = (int)ITEM_ID::TREASURECHEST2;
-
-	 int m_rand_number = 0;
-	 m_rand_number = aqua::Rand(0, 0);
-
-	switch (m_rand_number)
-	{
-	case 0: m_pChara->HealPotion(); break;
-
-	default:
-		break;
-	}
-}
-
 bool CItem::CheckItemWall(int x, int y)
 {
 	if ((m_ItemData[m_map_x_item * y + x] == (int)ITEM_ID::TREASURECHEST1) ||
@@ -169,4 +144,9 @@ bool CItem::CheckBoss(int x, int y)
 		return true;
 
 	return false;
+}
+
+int CItem::GetMapTile(void)
+{
+	return m_map_x_item;
 }

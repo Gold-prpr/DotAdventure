@@ -42,11 +42,11 @@ Initialize(void)
 
 	aqua::CreateGameObject<CInventory>(this);
 
-	aqua::CreateGameObject<CCharacterManager>(this);
-
 	aqua::CreateGameObject<CScroll>(this);
 
 	aqua::CreateGameObject<CSceneManager>(this);
+
+	aqua::CreateGameObject<CCharacterManager>(this);
 
 	IGameObject::Initialize();
 }

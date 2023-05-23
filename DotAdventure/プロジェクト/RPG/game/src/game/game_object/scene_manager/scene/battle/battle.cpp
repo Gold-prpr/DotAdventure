@@ -245,6 +245,8 @@ Update(void)
 	//‰ñ•œ–ò‚ÌˆÊ’u
 	if (m_BattleFase == CBattleScene::SELECTTOOL)
 	{
+		m_pInve->m_HealPosionLabel.color.alpha = 0xff;
+		m_pInve->m_HealPosionCountLabel.color.alpha = 0xff;
 		m_pInve->m_HealPosionLabel.position = m_pSkill->SkillPos(1);
 		m_pInve->m_HealPosionCountLabel.position =
 			aqua::CVector2(m_pInve->m_HealPosionLabel.position.x + m_pInve->m_HealPosionLabel.GetTextWidth(),
@@ -381,8 +383,6 @@ Finalize(void)
 
 	m_SkillMpNum.Delete();
 
-	m_pInve->Finalize();
-
 	m_MpLabel.Delete();
 	m_MpNumber.Delete();
 	m_HpLabel.Delete();
@@ -419,9 +419,6 @@ Finalize(void)
 	m_No.Delete();
 
 	m_UseTool.Delete();
-
-	m_pInve->m_HealPosionLabel.Delete();
-	m_pInve->m_HealPosionCountLabel.Delete();
 
 	IGameObject::Finalize();
 }

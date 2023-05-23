@@ -17,7 +17,7 @@ void CSkill::Initialize(void)
 	m_SkillNum = 0;
 	m_MagicNum = 0;
 
-	m_CharaSkill[0] = { 1,"たいあたり",SkillPos(m_CharaSkill[0].id_num) , 70.0f };
+	m_CharaSkill[0] = { 1,"たいあたり",SkillPos(m_CharaSkill[0].id_num) , 1170.0f };
 	m_CharaSkill[1] = { 2,"パンチ",SkillPos(m_CharaSkill[1].id_num) , 75.0f };
 	m_CharaSkill[2] = { 3,"なく",SkillPos(m_CharaSkill[2].id_num) , 60.0f };
 	m_CharaSkill[3] = { 4,"キック",SkillPos(m_CharaSkill[3].id_num), 80.0f };

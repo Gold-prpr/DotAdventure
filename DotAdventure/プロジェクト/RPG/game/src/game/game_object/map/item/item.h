@@ -30,11 +30,11 @@ public:
 
 	void ChangeAir(int x, int y);
 
-	void OpenBox(int x, int y);
-
 	bool CheckItemWall(int x, int y);
 
 	bool CheckBoss(int x, int y);
+
+	int GetMapTile(void);
 
 	static const int m_map_chip_size_item; //アイテムタイルの大きさ
 

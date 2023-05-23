@@ -14,6 +14,9 @@ CGameClearScene::
 Initialize(void)
 {
 	m_pSound = (CSoundManager*)aqua::FindGameObject("SoundManager");
+	m_pItem = (CItem*)aqua::FindGameObject("Item");
+
+	m_pItem->DeleteObject();
 
 	m_pSound->Play(SOUND_ID::GAMECLEAR);
 

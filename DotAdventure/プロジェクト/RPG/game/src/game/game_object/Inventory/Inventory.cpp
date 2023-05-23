@@ -36,6 +36,8 @@ Initialize(void)
 		(aqua::GetWindowHeight() / 2.0f) - (m_InveBs.GetTextureHeight() / 2.0f));
 	m_InveBs.color.alpha = 0x00;
 
+	m_BsFlag = false;
+
 	/*
 	/   ‹àƒCƒ“ƒSƒbƒg
 	*/

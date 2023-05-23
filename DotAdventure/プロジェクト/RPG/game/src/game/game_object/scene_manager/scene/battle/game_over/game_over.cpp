@@ -12,10 +12,7 @@ Initialize(void)
 {
 	m_pSound = (CSoundManager*)aqua::FindGameObject("SoundManager");
 	m_pData = (CData*)aqua::FindGameObject("Data");
-	m_pItem = (CItem*)aqua::FindGameObject("Item");
-
-	m_pItem->DeleteObject();
-
+	
 	m_pSound->Play(SOUND_ID::LOSEBGM);
 
 	m_BackGroundSprite.Create("data\\ƒ^ƒCƒgƒ‹\\–³‘è.png");

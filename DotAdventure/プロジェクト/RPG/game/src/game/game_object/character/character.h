@@ -69,6 +69,8 @@ public:
 
 	void CheckBoss(void);
 
+	void OpenBox(int x, int y);
+
 	struct STATUS
 	{
 		int level;

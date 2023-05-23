@@ -5,9 +5,11 @@
 #include "../../../../animation/animation.h"
 #include "../../../scene_manager.h"
 #include "../../../../sound_manager/sound_manager.h"
+#include "../../../../map/item/item.h"
 
 class CSoundManager;
 class CFade;
+class CItem;
 
 class CGameClearScene
 	: public IScene
@@ -31,4 +33,5 @@ private:
 	
 	CSoundManager* m_pSound;
 	CFade* m_pFade;
+	CItem* m_pItem;
 };

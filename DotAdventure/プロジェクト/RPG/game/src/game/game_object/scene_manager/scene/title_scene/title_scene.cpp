@@ -12,6 +12,7 @@
 #include "title_scene.h"
 #include "..\..\scene_manager.h"
 #include "../../../map/item/item.h"
+#include "../../../map/map.h"
 
 /*
  *  コンストラクタ
@@ -28,17 +29,16 @@ Initialize(void)
 {
 	m_pSound = (CSoundManager*)aqua::FindGameObject("SoundManager");
 	m_pFade = (CFade*)aqua::CreateGameObject<CFade>(this);
-//	CCharacterManager* cm = (CCharacterManager*)aqua::FindGameObject("CharacterManager");
-	m_pChara = (CCharacter*)aqua::FindGameObject("Character");
-	m_pInve = (CInventory*)aqua::FindGameObject("Inventory");
-	m_pItem = (CItem*)aqua::FindGameObject("Item");
-	
+	//CCharacterManager* cm = (CCharacterManager*)aqua::FindGameObject("CharacterManager");
+	//m_pChara = (CCharacter*)aqua::FindGameObject("Character");
+	//m_pInve = (CInventory*)aqua::FindGameObject("Inventory");
+
 	m_pSound->Play(SOUND_ID::MAINOP);
 
 	//２週目用にキャラの位置とアイテムの所持をリセット
-//	cm->Initialize();
-//	m_pChara->Initialize();
-//	m_pInve->ResetNum();
+	//cm->Initialize();
+	//m_pChara->Initialize();
+	//m_pInve->ResetNum();
 
 	m_Timer.Setup(5.0f);
 

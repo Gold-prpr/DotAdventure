@@ -7,7 +7,6 @@ CCharacterManager::CCharacterManager(aqua::IGameObject* parent)
 
 void CCharacterManager::Initialize(void)
 {
-	//m_pItem = aqua::CreateGameObject<CItem>(this);
 	m_pChara = aqua::CreateGameObject<CCharacter>(this);
 
 	IGameObject::Initialize();

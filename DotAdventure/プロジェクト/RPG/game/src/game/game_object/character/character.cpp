@@ -62,13 +62,13 @@ void CCharacter::Initialize(void)
 	m_pScroll->Initialize();
 
 	EncountReset();
+
+	IGameObject::Initialize();
 }
 
 void CCharacter::Update(void)
 {
 	m_Chara.position = m_CharaPos;
-
-	m_pInve->Update();
 
 	//インベントリー画面が出ているとキャラを動かなくする
 	if (m_pInve->m_BsFlag == false)
@@ -124,7 +124,7 @@ void CCharacter::Update(void)
 		}
 	}
 
-
+	IGameObject::Update();
 }
 
 void CCharacter::Draw(void)
@@ -136,11 +136,15 @@ void CCharacter::Draw(void)
 	m_Chara.Draw();
 
 	m_pInve->Draw();
+
+	IGameObject::Draw();
 }
 
 void CCharacter::Finalize(void)
 {
 	m_Chara.Delete();
+
+	IGameObject::Finalize();
 }
 
 void CCharacter::MoveCharacter(void)
@@ -305,23 +309,40 @@ void CCharacter::CheckChest(int x, int y)
 	//宝箱に触れているかを判別、宝箱を開ける
 	if (m_pItem->CheckChest(x, y + 1) == true)
 	{
-		m_pItem->OpenBox(x, y + 1);
+		OpenBox(x, y + 1);
 	}
 	else if (m_pItem->CheckChest(x, y - 1) == true)
 	{
-		m_pItem->OpenBox(x, y - 1);
+		OpenBox(x, y - 1);
 	}
 	else if (m_pItem->CheckChest(x - 1, y) == true)
 	{
-		m_pItem->OpenBox(x - 1, y);
+		OpenBox(x - 1, y);
 	}
 	else if (m_pItem->CheckChest(x + 1, y) == true)
 	{
-		m_pItem->OpenBox(x + 1, y);
+		OpenBox(x + 1, y);
 	}
 
 	//鍵を１つ減らす
 	UseKeyCount();
+}
+
+void CCharacter::OpenBox(int x, int y)
+{
+	if (m_pItem->m_ItemData[m_pItem->GetMapTile() * y + x] == (int)ITEM_ID::TREASURECHEST1)
+		m_pItem->m_ItemData[m_pItem->GetMapTile() * y + x] = (int)ITEM_ID::TREASURECHEST2;
+
+	int m_rand_number = 0;
+	m_rand_number = aqua::Rand(0, 0);
+
+	switch (m_rand_number)
+	{
+	case 0: HealPotion(); break;
+
+	default:
+		break;
+	}
 }
 
 void CCharacter::CheckItem(int x, int y)
