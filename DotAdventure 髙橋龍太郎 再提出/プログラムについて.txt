@@ -1,0 +1,8 @@
+プログラムは
+"source\\RPG\\project\\aqua.sln"
+からご覧になることができます。
+
+環境
+Microsoft Visual Studio Community 2019
+(Version 16.11.24)
+Microsoft Visual C++ 2019
