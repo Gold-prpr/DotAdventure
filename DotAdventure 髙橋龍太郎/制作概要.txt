@@ -1,6 +1,10 @@
 DotAdventure
 髙橋 龍太郎
 
+プログラムは
+"source\\RPG\\project\\aqua.sln"
+からご覧になることができます。
+
 情報
 • ジャンル RPG
 • 製作期間 ６か月
